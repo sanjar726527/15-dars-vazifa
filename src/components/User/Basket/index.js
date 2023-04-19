@@ -5,7 +5,7 @@ import { Context } from "../../../context/context";
 import BasketWrapper from "./BasketWrapper";
 
 export const Basket = () => {
-  const [modal, onModal] = useContext(Context);
+  const [setModal] = useContext(Context);
   const basket = useSelector((product) => product);
   const result = basket.reduce((a, b) => a + b.qty, 0);
   const totalPrice = basket.reduce((a, b) => a + b.qty * b.price, 0);
@@ -21,7 +21,7 @@ export const Basket = () => {
                 <b>{totalPrice} sum</b>
               </span>
             </div>
-            <div className="basketButton" onClick={() => onModal(modal)}>
+            <div className="basketButton" onClick={() => setModal(false)}>
               <div className="basketIcon">
                 <SlBasket />
                 <span>Basket</span>

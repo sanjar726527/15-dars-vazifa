@@ -6,9 +6,8 @@ import { Context } from "../../../context/context";
 import { useSelector } from "react-redux";
 
 export const BasketModal = () => {
-  const [data, setData, modal, onModal, handleCLose] = useContext(Context);
+  const [data, setData, modal, handleCLose] = useContext(Context);
   const basket = useSelector((product) => product);
-  const title = basket.map((product) => product.title);
   console.log(basket);
   const onAdd = (e) => {
     const exist = basket.find((p) => p.id === e.id);
@@ -33,11 +32,11 @@ export const BasketModal = () => {
       setData(newProducts);
     }
   };
-  const totalPrice = data.reduce((a, b) => a + b.qty * b.price + 1500, 0);
+  const totalPrice = basket.reduce((a, b) => a + b.qty * b.price + 1500, 0);
 
   return (
     <>
-      {modal ? (
+      {!modal ? (
         <div className="basketModal">
           <div className="container">
             <div className="modalCard">
@@ -103,7 +102,7 @@ export const BasketModal = () => {
           </div>
         </div>
       ) : (
-        ""
+        " "
       )}
     </>
   );

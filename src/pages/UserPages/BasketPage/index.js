@@ -12,11 +12,13 @@ import { Link } from "react-router-dom";
 import { Context } from "../../../context/context";
 import logo from "../../../assets/logo.png";
 import BasketWrapper from "./BasketWrapper";
+import { useSelector } from "react-redux";
 
 export const BasketPage = () => {
   const [data, setData] = useContext(Context);
+  const basket = useSelector((product) => product);
   const onAdd = (e) => {
-    const exist = data.find((p) => p.id === e.id);
+    const exist = basket.find((p) => p.id === e.id);
     if (exist) {
       const newProducts = data.map((p) =>
         p.id === e.id ? { ...exist, qty: exist.qty + 1 } : p
