@@ -1,18 +1,23 @@
 import React, { useContext } from "react";
 import { SlBasket } from "react-icons/sl";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Context } from "../../../context/context";
 import BasketWrapper from "./BasketWrapper";
 
 export const Basket = () => {
-  const [setModal] = useContext(Context);
-  const basket = useSelector((product) => product);
-  const result = basket.reduce((a, b) => a + b.qty, 0);
-  const totalPrice = basket.reduce((a, b) => a + b.qty * b.price, 0);
+  const productsBasket = useSelector((state) => state.productsBasket);
+  const modal = useSelector((state) => state.modal);
+  const result = productsBasket.reduce((a, b) => a + b.qty, 0);
+  const totalPrice = productsBasket.reduce((a, b) => a + b.qty * b.price, 0);
+  const dispatch = useDispatch();
+  const onModal = () => {
+    dispatch({ type: "ON_MODAL", payload: true });
+  };
+  console.log(result, totalPrice);
 
   return (
     <>
-      {basket.length > 0 && (
+      {productsBasket.length > 0 && (
         <BasketWrapper>
           <div className="basket-row shadow">
             <div className="productPrice">
@@ -21,7 +26,7 @@ export const Basket = () => {
                 <b>{totalPrice} sum</b>
               </span>
             </div>
-            <div className="basketButton" onClick={() => setModal(false)}>
+            <div className="basketButton" onClick={onModal}>
               <div className="basketIcon">
                 <SlBasket />
                 <span>Basket</span>

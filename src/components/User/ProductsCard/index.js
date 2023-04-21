@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 
 export const ProductCard = ({ product }) => {
-  const basket = useSelector((product) => product);
+  
   const dispatch = useDispatch();
   const onAdd = (e) => {
     dispatch({ type: "ADD_PRODUCT_BASKET", payload: e });
