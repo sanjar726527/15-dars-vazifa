@@ -1,9 +1,8 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-
+import { useDispatch } from "react-redux";
 
 export const ProductCard = ({ product }) => {
-  
+  console.log(product);
   const dispatch = useDispatch();
   const onAdd = (e) => {
     dispatch({ type: "ADD_PRODUCT_BASKET", payload: e });

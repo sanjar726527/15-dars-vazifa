@@ -1,8 +1,10 @@
 import React from "react";
 import { ProductCard } from "../../../../components/User/ProductsCard";
-import products from "./../../../../data/products";
+import { useSelector } from "react-redux";
 
 export const Soups = () => {
+  const products = useSelector((product) => product.allProducts);
+
   const product = products.filter((product) => product.type === "soups");
   return (
     <div className="productCard py-3">

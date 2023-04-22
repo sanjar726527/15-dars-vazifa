@@ -17,9 +17,7 @@ export const BasketModal = () => {
   //     const newProducts = productsBasket.map((p) =>
   //       p.id === e.id ? { ...exist, qty: exist.qty + 1 } : p
   //     );
-  //     dispatch({newProducts});
-  //   } else {
-  //     setData([...productsBasket, { ...e, qty: 1 }]);
+  //     dispatch({ type: "ADD_PRODUCT_BASKET", payload: newProducts });
   //   }
   // };
   // const onRemove = (e) => {
@@ -34,6 +32,13 @@ export const BasketModal = () => {
   //     setData(newProducts);
   //   }
   // };
+  
+  const offModal = () => {
+    dispatch({ type: "OFF_MODAL", payload: false });
+  };
+  const onRemoveAll = () => {
+    dispatch({ type: "ON_REMOVE_ALL", payload: false });
+  };
   const totalPrice = productsBasket.reduce(
     (a, b) => a + b.qty * b.price + 1500,
     0
@@ -50,7 +55,7 @@ export const BasketModal = () => {
                   src="https://www.thespruceeats.com/thmb/jSsI2w8FkyTDrJhQkYJ5d0HS2uE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/green-salad-recipe-ensalada-verde-3083556-hero-01-256ac7f4162b45e5a1f82a5234a0708c.jpg"
                   alt="image"
                 />
-                <span onClick={"handleCLose"} className="closer">
+                <span onClick={offModal} className="closer">
                   <AiOutlineCloseCircle size={25} fill="white" />
                 </span>
               </div>
@@ -93,15 +98,24 @@ export const BasketModal = () => {
                   })}
                 </div>
                 <div className="modal-price my-2 text-start">
-                  <b className="text-end">Total price: {"totalPrice"} sum</b>
+                  <b className="text-end">Total price: {totalPrice} sum</b>
                 </div>
-                <Link
-                  onClick={"handleCLose"}
-                  to={"/basket"}
-                  className="btn btn-danger add"
-                >
-                  Add
-                </Link>
+                <div className="container d-flex justify-content-between">
+                  <Link
+                    onClick={offModal}
+                    to={"/basket"}
+                    className="btn btn-success add"
+                  >
+                    Add
+                  </Link>
+                  <Link
+                    onClick={onRemoveAll}
+                    to={"/user/home"}
+                    className="btn btn-danger add"
+                  >
+                    Remove All
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

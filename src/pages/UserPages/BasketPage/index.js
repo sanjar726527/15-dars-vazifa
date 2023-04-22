@@ -9,46 +9,48 @@ import { HiOutlineClipboardList } from "react-icons/hi";
 import { SlBasket } from "react-icons/sl";
 import { TfiUser } from "react-icons/tfi";
 import { Link } from "react-router-dom";
-import { Context } from "../../../context/context";
 import logo from "../../../assets/logo.png";
 import BasketWrapper from "./BasketWrapper";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export const BasketPage = () => {
-  const [data, setData] = useContext(Context);
-  const basket = useSelector((product) => product);
-  const onAdd = (e) => {
-    const exist = basket.find((p) => p.id === e.id);
-    if (exist) {
-      const newProducts = data.map((p) =>
-        p.id === e.id ? { ...exist, qty: exist.qty + 1 } : p
-      );
-      setData(newProducts);
-    } else {
-      setData([...data, { ...e, qty: 1 }]);
-    }
-  };
-  const onRemove = (e) => {
-    const exist = data.find((p) => p.id === e.id);
-    if (exist.qty === 1) {
-      const newProducts = data.filter((p) => p.id !== e.id);
-      setData(newProducts);
-    } else {
-      const newProducts = data.map((p) =>
-        p.id === e.id ? { ...exist, qty: exist.qty - 1 } : p
-      );
-      setData(newProducts);
-    }
-  };
-  const clearData = () => {
+  const modal = useSelector((product) => product.modal);
+  const productsBasket = useSelector((state) => state.productsBasket);
+  const dispatch = useDispatch();
+
+  // const onAdd = (e) => {
+  //   const exist = basket.find((p) => p.id === e.id);
+  //   if (exist) {
+  //     const newProducts = data.map((p) =>
+  //       p.id === e.id ? { ...exist, qty: exist.qty + 1 } : p
+  //     );
+  //     setData(newProducts);
+  //   } else {
+  //     setData([...data, { ...e, qty: 1 }]);
+  //   }
+  // };
+  // const onRemove = (e) => {
+  //   const exist = data.find((p) => p.id === e.id);
+  //   if (exist.qty === 1) {
+  //     const newProducts = data.filter((p) => p.id !== e.id);
+  //     setData(newProducts);
+  //   } else {
+  //     const newProducts = data.map((p) =>
+  //       p.id === e.id ? { ...exist, qty: exist.qty - 1 } : p
+  //     );
+  //     setData(newProducts);
+  //   }
+  // };
+
+  const onRemoveAll = () => {
     const clearing = prompt("Are you clearing all of your products?");
     if (clearing) {
-      setData([]);
+      dispatch({ type: "ON_REMOVE_ALL", payload: false });
     } else {
       alert("not clearing all of your products");
     }
   };
-  console.log(data);
+
   return (
     <BasketWrapper>
       <header className="shadow">
@@ -90,7 +92,7 @@ export const BasketPage = () => {
         <h1>Basket</h1>
         <div className="basket-main">
           <div className="basket-rows">
-            {data.map((product) => {
+            {productsBasket.map((product) => {
               return (
                 <div key={product.id} className="basket-card">
                   <div className="cart-item">
@@ -106,13 +108,13 @@ export const BasketPage = () => {
                   <div className="cart-item2">
                     <button
                       className="btn btn-outline-success me-1"
-                      onClick={() => onAdd(product)}
+                      onClick={() => "onAdd(product)"}
                     >
                       +
                     </button>
                     <button
                       className="btn btn-outline-danger ms-1"
-                      onClick={() => onRemove(product)}
+                      onClick={() => "onRemove(product)"}
                     >
                       -
                     </button>
@@ -134,7 +136,7 @@ export const BasketPage = () => {
           </Form>
           <div className="basket-footer">
             <button className="btn btn-success">Order acceptance</button>
-            <span onClick={clearData} className="btn btn-danger">
+            <span onClick={onRemoveAll} className="btn btn-danger">
               <span className="me-1">Clearing all products</span>
               <AiFillCloseCircle size={25} fill="white" />
             </span>

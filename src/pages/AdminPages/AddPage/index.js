@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import { Col, Form, Nav, Row, Tab } from "react-bootstrap";
 import AddPageWrapper from "./AddPageWrapper";
+import { useDispatch, useSelector } from "react-redux";
+
 
 export const AddPage = () => {
+  const allProducts = useSelector((product) => product.allProducts);
+  const dispatch = useDispatch();
   const [newCart, setNewCart] = useState({
-    category: "",
-    image: "",
-    name: "",
-    comment: "",
+    id: allProducts.length + 1,
+    type: "",
+    img: "",
     price: "",
+    title: "",
   });
   const handleChange = (e) => {
     const name = e.target.name;
@@ -18,7 +22,8 @@ export const AddPage = () => {
     });
   };
   const addCategory = () => {
-    console.log(newCart);
+    console.log(newCart, allProducts);
+    dispatch({ type: "ADD_NEW_PRODUCT", payload: newCart });
   };
 
   return (
@@ -51,7 +56,7 @@ export const AddPage = () => {
                           controlId="exampleForm.ControlInput1"
                         >
                           <Form.Control
-                            name="category"
+                            name="type"
                             type="text"
                             placeholder="Kategoriya nomi"
                             onChange={handleChange}
@@ -69,13 +74,13 @@ export const AddPage = () => {
                           controlId="exampleForm.ControlInput1"
                         >
                           <Form.Control
-                            name="image"
+                            name="img"
                             onChange={handleChange}
                             type="text"
                             placeholder="Rasmga yo’l"
                           />
                           <Form.Control
-                            name="name"
+                            name="title"
                             onChange={handleChange}
                             type="text"
                             placeholder="Taom nomi"
