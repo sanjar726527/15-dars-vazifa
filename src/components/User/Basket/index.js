@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import { SlBasket } from "react-icons/sl";
 import { useDispatch, useSelector } from "react-redux";
-import { Context } from "../../../context/context";
 import BasketWrapper from "./BasketWrapper";
 
 export const Basket = () => {

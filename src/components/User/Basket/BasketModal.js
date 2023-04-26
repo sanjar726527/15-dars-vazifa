@@ -1,8 +1,6 @@
 import React from "react";
-import { useContext } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { Context } from "../../../context/context";
 import { useDispatch, useSelector } from "react-redux";
 
 export const BasketModal = () => {
