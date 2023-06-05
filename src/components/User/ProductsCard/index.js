@@ -24,7 +24,7 @@ export const ProductCard = ({ product }) => {
     <div className="card-row">
       {product.map((item) => (
         <div className="card" key={item.id}>
-          <img src={item.img} alt="image" />
+          <img src={`${item.img}`} alt="image" />
           <span className="active">
             <button
               className="btn btn-warning"

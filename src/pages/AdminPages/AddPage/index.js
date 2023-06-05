@@ -3,7 +3,6 @@ import { Col, Form, Nav, Row, Tab } from "react-bootstrap";
 import AddPageWrapper from "./AddPageWrapper";
 import { useDispatch, useSelector } from "react-redux";
 
-
 export const AddPage = () => {
   const allProducts = useSelector((product) => product.allProducts);
   const dispatch = useDispatch();
